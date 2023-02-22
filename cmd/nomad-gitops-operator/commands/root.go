@@ -1,11 +1,27 @@
-package cmd
+package commands
 
 import (
 	"os"
 
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
+
+type Command struct {
+	Logger *logrus.Logger
+}
+
+func NewCommand(command *Command) *Command {
+	if command.Logger == nil {
+		command.Logger = &logrus.Logger{
+			Level:     logrus.DebugLevel,
+			Formatter: &logrus.JSONFormatter{},
+		}
+	}
+
+	return command
+}
 
 var rootCmd = &cobra.Command{
 	Use:   "nomoperator",

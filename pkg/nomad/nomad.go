@@ -3,6 +3,8 @@ package nomad
 import (
 	"fmt"
 
+	helper "nomad-gitops-operator/internal/pkg/helper"
+
 	nc "github.com/hashicorp/nomad-openapi/clients/go/v1"
 	v1 "github.com/hashicorp/nomad-openapi/v1"
 )
@@ -74,17 +76,16 @@ func (client *Client) ApplyJob(job *nc.Job) (string, error) {
 	metadata["nomoporater"] = "true"
 	metadata["uid"] = "nomoporator"
 	job.SetMeta(metadata)
-	// fmt.Printf("JobName: %s \n", job.GetName())
 
 	_, _, err := client.nc.Jobs().Plan(opts.Ctx(), job, false)
 	if err != nil {
-		return "", fmt.Errorf("error while running nomad plan: %s", err)
+		return "", fmt.Errorf("error while running nomad plan: %s", helper.UnwrapAPIError(err))
 	}
 
 	res, _, err := client.nc.Jobs().Post(opts.Ctx(), job)
 
 	if err != nil {
-		return "", fmt.Errorf("error while running nomad post: %s", err)
+		return "", fmt.Errorf("error while running nomad post: %s", helper.UnwrapAPIError(err))
 	}
 
 	return *res.EvalID, nil
