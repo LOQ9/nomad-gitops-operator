@@ -1,9 +1,9 @@
-project_name: nomoperator
+project_name: nomad-gitops-operator
 builds:
   -
     main: ./cmd/nomad-gitops-operator
-    id: nomoperator
-    binary: nomoperator
+    id: nomad-gitops-operator
+    binary: nomad-gitops-operator
     env: [CGO_ENABLED=0]
     goos:
       - linux

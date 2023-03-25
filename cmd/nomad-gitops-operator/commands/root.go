@@ -24,9 +24,9 @@ func NewCommand(command *Command) *Command {
 }
 
 var rootCmd = &cobra.Command{
-	Use:   "nomoperator",
-	Short: "Nomoperator is a cli tool for keeping a HashiCorp Nomad cluster in sync with a Git repository containing Nomad job specifications.",
-	Long: `Nomoperator is a cli tool for keeping a HashiCorp Nomad cluster in sync with a Git repository containing Nomad job specifications.
+	Use:   "nomad-gitops-operator",
+	Short: "nomad-gitops-operator is a cli tool for keeping a HashiCorp Nomad cluster in sync with a Git repository containing Nomad job specifications.",
+	Long: `nomad-gitops-operator is a cli tool for keeping a HashiCorp Nomad cluster in sync with a Git repository containing Nomad job specifications.
 Created by Jonas Vinther.`,
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 		// Apply the viper config value to the flag when the flag is not set and viper has a value
@@ -60,9 +60,9 @@ func init() {
 
 	// Explicitly defines the path, name and type of the config file.
 	// Viper will use this and not check any of the config paths.
-	// It will search for the "config" file in the ~/.nomoperator
+	// It will search for the "config" file in the ~/.nomad-gitops-operator
 	viper.SetConfigType("yaml")
-	viper.AddConfigPath("$HOME/.nomoperator")
+	viper.AddConfigPath("$HOME/.nomad-gitops-operator")
 	viper.SetConfigName("config")
 
 	// Find and read the config file

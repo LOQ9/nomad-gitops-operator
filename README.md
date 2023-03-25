@@ -23,7 +23,7 @@ NOMAD_CLIENT_KEY - Required with TLS enabled.
 Bootstrap Nomad using a git repository
 
 Usage:
-  nomoperator bootstrap git [git repo] [flags]
+  nomad-gitops-operator bootstrap git [git repo] [flags]
 
 Flags:
       --branch string   git branch (default "main")
@@ -37,19 +37,19 @@ Global Flags:
 
 Use it like this:
 ```
-./nomoperator bootstrap git --url https://github.com/jonasvinther/nomad-state.git --path /jobs --branch main
+./nomad-gitops-operator bootstrap git --url https://github.com/jonasvinther/nomad-state.git --path /jobs --branch main
 ```
 
 ## Run as Nomad job
 ```yaml
-job "nomoperator" {
+job "nomad-gitops-operator" {
   datacenters = ["dc1"]
-  group "nomoperator" {
+  group "nomad-gitops-operator" {
     count = 1
-    task "nomoperator" {
+    task "nomad-gitops-operator" {
       driver = "exec"
       config {
-        command = "nomoperator"
+        command = "nomad-gitops-operator"
         args    = ["bootstrap", "git", "--url", "https://github.com/jonasvinther/nomad-state.git", "--branch", "main", "--path", "/prod-env"]
       }
       artifact {
